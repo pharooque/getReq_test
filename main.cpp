@@ -1,18 +1,17 @@
 #include <cpr/cpr.h>
 #include <iostream>
 #include <string>
-#include <string_view>
 
-std::string_view getURL()
+std::string getURL()
 {
-    std::string url{};
+    std::string url;
     std::cout << "Enter URL for GET Request: ";
     std::getline(std::cin, url);
 
     return url;
 }
 
-void getRequest(const std::string_view& url)
+void getRequest(const std::string& url)
 {
     std::cout << "Making GET Request to: " << url << std::endl;
 
@@ -24,7 +23,14 @@ void getRequest(const std::string_view& url)
     }
     else
     {
-        std::cout << "GET Request failed." << std::endl;
+        std::cerr << "GET Request failed with status code: " << response.status_code << std::endl;
     }
+}
 
+int main(int argc, char const *argv[])
+{
+    std::string url = getURL();
+
+    getRequest(url);
+    return 0;
 }
